@@ -1,0 +1,106 @@
+<mvc:View xmlns:core="sap.ui.core"
+  xmlns:odata="sap.ui.comp.odata" controllerName="zppreservation.controller.second"
+  xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+  xmlns="sap.m"
+  xmlns:f="sap.ui.layout.form"
+  xmlns:table="sap.ui.table">
+  <Page id="second" title="{i18n>title}">
+    <content>
+      <f:SimpleForm>
+        <table:Table id="table2" rows="{oTableDataModel>/aTableData}" >
+          <table:extension>
+            <OverflowToolbar id="TenthTable_OverflowToolbar" style="Clear">
+              <ToolbarSpacer id="TenthTable_ToolbarSpacer" />
+              <Button id="TableDeleteSelectedRow" text="Delete" press="DeleteSelectedRow"/>
+            </OverflowToolbar>
+          </table:extension>
+          <table:columns>
+            <!-- <table:Column id="tc17" width="11rem">
+              <Label id="tl17" text="Order ID" />
+              <table:template>
+                <Input id="idOrdId" editable="false" value="{oTableDataModel>OrderID}" />
+              </table:template>
+            </table:Column> -->
+            <table:Column id="tc11" width="11rem">
+              <Label id="tl11" text="Component" />
+              <table:template>
+                <Input id="idCompo" editable="false" value="{oTableDataModel>Product}" />
+              </table:template>
+            </table:Column>
+            <table:Column id="tc111" width="14rem">
+              <Label id="tl111" text="Component Long" />
+              <table:template>
+                <Input id="idComponentLong" editable="false" value="{oTableDataModel>ComponentLong}" />
+              </table:template>
+            </table:Column>
+            <table:Column id="tc12" width="20rem">
+              <Label id="tl12" text="Component Description" />
+              <table:template>
+                <Input id="idCompDesc" editable="false" value="{oTableDataModel>ProductDescription}" />
+              </table:template>
+            </table:Column>
+            <table:Column id="tc13" width="10rem">
+              <Label id="tl13" text="Required Qty." />
+              <table:template>
+                <Input id="idReqQty" editable="true" value="{oTableDataModel>ResvnItmRequiredQtyInBaseUnit}" />
+              </table:template>
+            </table:Column>
+            <table:Column id="tc14" width="6rem">
+              <Label id="tl14" text="Unit" />
+              <table:template>
+                <Input id="Unit" editable="false" value="{oTableDataModel>BaseUnit}" />
+              </table:template>
+            </table:Column>
+            <table:Column id="tc19" width="9rem">
+              <Label id="tl19" text="Stock" />
+              <table:template>
+                <Input id="Stock" editable="false" value="{oTableDataModel>StockQty}" />
+              </table:template>
+            </table:Column>
+         
+         
+         
+         
+         
+         
+         
+            <table:Column id="tc15" width="8rem">
+              <Label id="tl15" text="Sloc" />
+              <table:template>
+                <Input id="idSloc" editable="false" value="{oTableDataModel>StorageLocation}" />
+              </table:template>
+            </table:Column>
+            <table:Column id="tc16" width="8rem">
+              <Label id="tl16" text="Batch" />
+              <table:template>
+                <Input id="idBatch" editable="false" value="{oTableDataModel>Batch}" />
+              </table:template>
+            </table:Column>
+
+                     <table:Column id="tc6" width="10rem">
+                          <Label id="tl6" text="Book Qty" />
+                          <table:template>
+                            <Input id="idPendingQty" editable="false"   />
+                          </table:template>
+                        </table:Column>
+
+          </table:columns>
+
+        </table:Table>
+      </f:SimpleForm>
+    </content>
+    <footer>
+      <Bar>
+     
+
+     
+
+        <contentRight>
+          <!-- <Button text="FetchToken" press="fetchToken"/> -->
+          <Button text="Save" type="Emphasized" press="fetchToken"/>
+
+        </contentRight>
+      </Bar>
+    </footer>
+  </Page>
+</mvc:View>

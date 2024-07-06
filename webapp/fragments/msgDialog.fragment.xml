@@ -1,0 +1,16 @@
+<core:FragmentDefinition xmlns:form="sap.ui.layout.form" controller="zppreservation.controller.second" xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Dialog title="Export As" id="dia">
+        <form:SimpleForm editable="true" id="form111">
+            <form:content>
+                <!-- <Label id="FileNameLabel" text="{oExcelFileNameModel>/ExcelFileName}" /> -->
+                <!-- <Input id="FileName" value="{oExcelFileNameModel>/ExcelFileName}"/> -->
+            </form:content>
+        </form:SimpleForm>
+        <beginButton>
+            <Button id="button11111" text="Export" type="Emphasized" press="ExportButton" />
+        </beginButton>
+        <endButton>
+            <Button id="button11112" text="Cancel" type="Emphasized" press="Cancelbutton" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

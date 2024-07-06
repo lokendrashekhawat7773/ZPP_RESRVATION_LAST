@@ -1,0 +1,156 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:odata="sap.ui.comp.odata" controllerName="zppreservation.controller.firstscreen"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m" xmlns:f="sap.ui.layout.form"
+    xmlns:table="sap.ui.table" >
+    <Page id="firstscreen" title="{i18n>title}">
+        <content>
+<f:SimpleForm editable="true" layout="ResponsiveGridLayout" columnsL="3">
+  <core:Title />
+  <Label text="Date" />
+  <DatePicker id="idDate" required="true" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" width="70%" />
+  <Label text="Department" />
+  <ComboBox width="70%" id="idDepart" change="ChangeToLocationAccordingDepartment">
+    <items>
+      <core:Item text="Cutting" key="CF01"/>
+      <core:Item text="Sewing" key="CS01" />
+      <core:Item text="Door" key="DR01" />
+      <core:Item text="Event" key="EG01" />
+      <core:Item text="FR Seat Assembly" key="FR01" />
+      <core:Item text="FR Weld" key="FW01" />
+      <core:Item text="Head Rest" key="HR01" />
+      <core:Item text="Mattresses Cover" key="MT01" />
+      <core:Item text="Others" key="OP01" />
+      <core:Item text="Offline Riverting" key="OR01" />
+      <core:Item text="Pipe Bending" key="PB01" />
+      <core:Item text="RR Seat Assembly" key="RR01" />
+      <core:Item text="RR Weld" key="RW01" />
+      <core:Item text="SWITCH PANEL" key="SW01" />
+      <!-- <core:Item text="Switch" key="SW01" /> -->
+    </items>
+  </ComboBox>
+    <Label  text="Order Number" />
+  <!-- <Input width="70%" id="idOrdNumber" /> -->
+        <!-- <Input id="idOrdNumber" width="70%" showSuggestion="true" showValueHelp="true" valueLiveUpdate="true" maxLength="40" editable="true" maxSuggestionWidth="55%" valueHelpRequest="handleValueHelpOrderNo"/> -->
+       <Input id="idOrdNumber" type="Text" width="70%" showSuggestion="true" showValueHelp="true" valueLiveUpdate="true" maxLength="40" editable="true" maxSuggestionWidth="55%" valueHelpRequest="handleValueHelpOrder2" />
+
+
+
+
+
+  <core:Title />
+  <Label  text="To Location" />
+  <ComboBox width="70%" id="idToLoc" items="{oToLocationModel>/ToLocation}">
+    <core:Item id="coreItem" key="{oToLocationModel>Key}" text="{oToLocationModel>Description}" />
+  </ComboBox>
+  <!-- <ComboBox width="70%" id="idToLoc">
+    <items>
+      <core:Item text="CT01" key="CT01"/>
+      <core:Item text="SW01" key="SW01" />
+      <core:Item text="DA01" key="DA01" />
+      <core:Item text="EV01" key="EV01" />
+      <core:Item text="FS01" key="FS01" />
+      <core:Item text="WA01" key="WA01" />
+      <core:Item text="HR01" key="HR01" />
+      <core:Item text="MT01" key="MT01" />
+      <core:Item text="OT01" key="OT01" />
+      <core:Item text="OR01" key="OR01" />
+      <core:Item text="PB01" key="PB01" />
+      <core:Item text="RS01" key="RS01" />
+      <core:Item text="WA01" key="WA01" />
+      <core:Item text="SPD1" key="SPD1" />
+      <core:Item text="SP01" key="SP01" />
+    </items>
+  </ComboBox> -->
+
+  <Label  text="From Location" />
+  <Input width="70%" id="idFromLoc" value="ST01" />
+  <Label  text="Required Date" />
+  <DatePicker id="idReqDate" required="true" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" width="70%" />
+
+  <core:Title />
+  <Label  text="To Plant" />
+  <Input width="70%" value="1001" editable="false"/>
+  <Label />
+  <Button text="Get" id="Table_GetButton" width="70%" press="handleGet"/>
+      </f:SimpleForm>
+<f:SimpleForm>
+ <table:Table id="table1" rows="{oTableDataModel>/aTableData}" selectionMode="MultiToggle" ariaLabelledBy="title">
+                    
+                    
+                    
+                      <table:extension>
+                    <OverflowToolbar id="OverflowToolbar" style="Clear">
+                        <ToolbarSpacer id="Tbs" />
+                          <Button text="Next" type="Emphasized" press="handleNext"/>
+
+                    </OverflowToolbar>
+                </table:extension>
+              
+                 <table:columns>
+                        <table:Column id="tc1" width="8rem">
+                          <Label id="tl1" text="Production Order" />
+                          <table:template>
+                            <Input id="idProdOrd" editable="false" value="{oTableDataModel>ComponentOrder}"  />
+                          </table:template>
+                        </table:Column>
+                      <table:Column id="tc2" width="11rem">
+                          <Label id="tl2" text="Material" />
+                          <table:template>
+                            <Input id="idMaterial" editable="false" value="{oTableDataModel>Product}" />
+                          </table:template>
+                        </table:Column>
+                      <table:Column id="tc3" width="22rem">
+                          <Label id="tl3" text="Material Description" />
+                          <table:template>
+                            <Input id="idMatDesc" editable="false" value="{oTableDataModel>ProductDescription}" />
+                          </table:template>
+                        </table:Column>
+
+                         <table:Column id="tc13" width="15rem">
+                          <Label id="tl13" text="Material Long" />
+                          <table:template>
+                            <Input id="idMatLong" editable="false" value="{oTableDataModel>ProductManufacturerNumber}" />
+                          </table:template>
+                        </table:Column>
+                     
+
+
+
+
+
+
+
+                      <table:Column id="tc4" width="6rem">
+                          <Label id="tl4" text="Quantity" />
+                          <table:template>
+                            <Input id="idQty" editable="false" value="{oTableDataModel>MfgOrderPlannedTotalQty}" />
+                          </table:template>
+                        </table:Column>
+                         <table:Column id="tc7" width="7rem">
+                          <Label id="tl7" text="Required Qty."/>
+                          <table:template>
+                            <Input id="idReqQty" editable="true" type="Number" value="{oTableDataModel>ReqQty}" />
+                          </table:template>
+                        </table:Column> 
+                        <table:Column id="tc5" width="4rem">
+                          <Label id="tl5" text="Unit" />
+                          <table:template>
+                            <Input id="idUnit" editable="false" value="{oTableDataModel>ProductionUnit}" />
+                          </table:template>
+                        </table:Column>
+                      
+                        <table:Column id="tc6" width="7rem">
+                          <Label id="tl6" text="Reservation No" />
+                          <table:template>
+                            <Input id="idPendingQty" editable="false" value="{oTableDataModel>Reservation}" />
+                          </table:template>
+                        </table:Column> 
+                      
+
+   </table:columns>
+
+</table:Table>
+</f:SimpleForm>
+</content>
+    </Page>
+</mvc:View>

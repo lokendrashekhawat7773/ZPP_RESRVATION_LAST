@@ -1,0 +1,198 @@
+{
+  "_version": "1.49.0",
+  "sap.app": {
+    "id": "zppreservation",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.11.1",
+      "toolsId": "d46d7b2d-7de7-48f5-a34a-bc4bb184ac4b"
+    },
+    "dataSources": {
+      "ZSEVICE_BIND_RES": {
+        "uri": "/sap/opu/odata/sap/ZSEVICE_BIND_RES",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "zpp_reservation-display": {
+          "semanticObject": "zpp_reservation",
+          "action": "display",
+          "title": "{{flpTitle}}",
+          "subTitle": "{{flpSubtitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.119.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.f": {},
+        "sap.suite.ui.generic.template": {},
+        "sap.ui.comp": {},
+        "sap.ui.generic.app": {},
+        "sap.ui.table": {},
+        "sap.ushell": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "zppreservation.i18n.i18n"
+        }
+      },
+      "": {
+        "preload": true,
+        "dataSource": "ZSEVICE_BIND_RES",
+        "settings": {
+          "defaultBindingMode": "TwoWay",
+          "defaultCountMode": "Inline",
+          "refreshAfterChange": false,
+          "metadataUrlParams": {
+            "sap-value-list": "none"
+          }
+        }
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "async": true,
+        "viewPath": "zppreservation.view",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "clearControlAggregation": false
+      },
+      "routes": [
+        {
+          "name": "Routereservation",
+          "pattern": ":?query:",
+          "target": [
+            "Targetreservation"
+          ]
+        },
+        {
+          "name": "second",
+          "pattern": "second",
+          "target": [
+            "second"
+          ]
+        },
+        {
+          "name": "firstscreen",
+          "pattern": "firstscreen",
+          "target": [
+            "firstscreen"
+          ]
+        },
+        {
+          "name": "manual",
+          "pattern": "manual",
+          "target": [
+            "manual"
+          ]
+        },
+        {
+          "name": "View1",
+          "pattern": "View1",
+          "target": [
+            "View1"
+          ]
+        }
+      ],
+      "targets": {
+        "Targetreservation": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "reservation",
+          "viewName": "reservation"
+        },
+        "second": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "second",
+          "viewName": "second"
+        },
+        "firstscreen": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "firstscreen",
+          "viewName": "firstscreen"
+        },
+        "manual": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "manual",
+          "viewName": "manual"
+        },
+        "View1": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "View1",
+          "viewName": "View1"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "zppreservation.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "App"
+    }
+  }
+}

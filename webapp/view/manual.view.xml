@@ -1,0 +1,297 @@
+<mvc:View xmlns:core="sap.ui.core"
+  xmlns:odata="sap.ui.comp.odata" controllerName="zppreservation.controller.manual"
+  xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+  xmlns="sap.m"
+  xmlns:f="sap.ui.layout.form"
+  xmlns:table="sap.ui.table">
+  <Page id="manual" title="Manual Reservation">
+    <content>
+      <f:SimpleForm editable="true" layout="ResponsiveGridLayout" columnsL="3">
+        <core:Title />
+        <Label text="Plant" required="true" />
+        <!-- <Input width="80%" id="idFromPlant" editable="false" value="1001" /> -->
+          <ComboBox selectedKey="311" id="idFromPlant" width="80%" showSecondaryValues="true" >
+          <items>
+            <core:ListItem key="1001" id="idPlant1" text="1001" additionalText="TSSR Rajasthan"  />
+            <core:ListItem key="1101" id="idPlant2" text="1101" additionalText="TSSR Gujarat-1" />
+            <core:ListItem key="1102" id="idPlant3" text="1102" additionalText="TSSR Gujarat-2" />  
+          </items>
+        </ComboBox>
+       
+
+
+
+
+        <!-- <Label text="To Plant" />
+        <Input width="80%" id="idToPlant" editable="false" value="1001" /> -->
+        <Label visible="{oVisibleModel>/Standard}" id="Price_Label" text="Cost Center" required="true" />
+        <!-- <Input  width="80%"  id="Price" editable="true" /> -->
+       <Input id="Price" type="Text" width="80%" visible="{oVisibleModel>/Standard}" showSuggestion="true" showValueHelp="true" valueLiveUpdate="true" maxLength="40" editable="true" maxSuggestionWidth="55%" valueHelpRequest="handleValueHelpCostCenter" />
+
+        <Label text=" Required Date" required="true"/>
+        <DatePicker id="idDate1" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" width="80%" />
+        <Label text="Reservation Number" />
+        <Input id="idReservationNo" placeholder="Enter Genetated Reservation No." width="80%" editable="true" />
+        <Label text="Document Number" />
+        <Input id="idDocNo" placeholder="Enter Document No." width="80%" editable="true" />
+
+
+
+
+        <core:Title />
+        <Label text="From Location" required="true"/>
+          <ComboBox items="{path:'/I_StorageLocation', length:'5000'}" placeholder="Select From Location" width="80%" id="idFromLocation"  showSecondaryValues= "true"  change="handleLocation" >
+          <items>
+           <core:ListItem text="{StorageLocation}" key="{StorageLocation}" additionalText="{StorageLocationName}" />
+            
+          </items>
+        </ComboBox>
+      
+        <Label text="To Location" />
+        <ComboBox width="80%" id="idToLocation" items="{path:'/I_StorageLocation', length:'5000'}" placeholder="Select To Location" showSecondaryValues= "true"  change="handleLocation" required="true">
+          <items>
+            <core:ListItem text="{StorageLocation}" key="{StorageLocation}" additionalText="{StorageLocationName}" />
+            
+          </items>
+        </ComboBox>
+      
+        <Label text="Movement Type" required="true" />
+        <ComboBox selectedKey="311" id="PriceControl" width="80%" change="PriceControll_Combo_Fun" showSecondaryValues="true" selectionChange="onSelectionChange" >
+          <items>
+            <core:ListItem key="201" id="idV" text="201" additionalText="Consumable"  />
+            <core:ListItem key="311" id="idS" text="311" additionalText="Transfer Posting" />
+            <!-- <core:ListItem key="551" id="idS2" text="551" additionalText="G.I. Scrapping" />  -->
+          </items>
+        </ComboBox>
+        <Label text="Supplier" />
+        <!-- <Input width="80%" id="idSupplier"></Input> -->
+       <Input id="idSupplier" width="80%" showSuggestion="true" showValueHelp="true" valueLiveUpdate="true" editable="true" maxSuggestionWidth="55%" valueHelpRequest="handleValueHelpSupplier" />
+
+
+
+        <core:Title />
+        <Label text="Material" id="Material_Label"/>
+        <!-- <Input width="70%" id="Material"></Input> -->
+        <!-- <Input id="Material" width="70%" showSuggestion="true" showValueHelp="true" valueLiveUpdate="true" maxLength="40" editable="true"  maxSuggestionWidth="55%" valueHelpRequest="handleValueHelpMaterialheader" /> -->
+       <Input id="Material" type="Text" width="70%" showSuggestion="true" showValueHelp="true" valueLiveUpdate="true" maxLength="40" editable="true" maxSuggestionWidth="55%" valueHelpRequest="handleValueHelpMaterialheader1" />
+
+
+
+        <Label text="Quantity" />
+        <Input width="70%" id="idQty"></Input>
+        <Label text="Model" />
+        <Input width="70%" id="idModel"></Input>
+       
+       
+       
+       
+        <Label id="GetButton_Label"/>
+        <!-- <Button id="GetButton" text="Get" press="handleGet" width="70%" /> -->
+        <Button id="GetButton1246" text="Get" press="CallBackendData" width="70%" />
+      </f:SimpleForm>
+      <f:SimpleForm>
+        <table:Table id="table1" rows="{oTableDataModel>/aTableData}" enableBusyIndicator="true" selectionMode="MultiToggle" ariaLabelledBy="title">
+          <table:extension>
+            <OverflowToolbar id="OverflowToolbar" style="Clear">
+              <ToolbarSpacer id="Tbs" />
+               <Button text="Delete" icon="sap-icon://delete" press="handleDelete" />
+              <Button text="Save" type="Emphasized" press="fetchToken"/>
+            </OverflowToolbar>
+          </table:extension>
+          <table:columns>
+
+                  <table:Column id="Table_tc24" width="5rem">
+                            <Label id="Table_Label24" text="Serial No." />
+                            <table:template>
+                                <Input id="Table_Input24" type="Number"  editable="false"  value="{oTableDataModel>SerialNo}" />
+                            </table:template>
+                        </table:Column>
+                      
+
+
+
+
+
+
+                        <table:Column id="Table_tc1" width="13rem">
+                            <Label id="Table_Label1" text="Material" />
+                            <table:template>
+                                <!-- <Input id="Table_Input1" type="Text" maxLength="40" editable="true" value="{oTableDataModel>Material}"/> -->
+                        <Input id="Table_Input1" type="Text" liveChange="ChangeMaterialDescription" submit="ChangeMaterialDescription" change="ChangeMaterialDescription1"  showSuggestion="true" showValueHelp="true" valueLiveUpdate="true" maxLength="40" value="{oTableDataModel>Product}" editable="true" maxSuggestionWidth="55%" valueHelpRequest="handleValueHelpMaterial" />
+                           
+                            </table:template>
+                        </table:Column>
+                        <table:Column id="Table_tc2" width="15rem">
+                            <Label id="Table_Label2" text="Manufacture Part Number" />
+                            <table:template>
+                                <Input id="Table_Input2" type="Text" maxLength="40" editable="false" value="{oTableDataModel>ProductManufacturerNumber}"/>
+                            </table:template>
+                        </table:Column>
+                        <table:Column id="Table_tc3" width="22rem">
+                            <Label id="Table_Label3" text="Material Description" />
+                            <table:template>
+                                <Input id="Table_Input3" type="Text" maxLength="40" editable="false" value="{oTableDataModel>description}"/>
+                            </table:template>
+                        </table:Column>
+                        <table:Column id="Table_tc4" width="6rem">
+                            <Label id="Table_Label4" text="Quantity" />
+                            <table:template>
+                                <Input id="Table_Input4" type="Text" submit="AddAutomaticSingleRow1" maxLength="40" editable="true" value="{oTableDataModel>ResvnItmRequiredQtyInEntryUnit}"/>
+                            </table:template>
+                        </table:Column>
+                        <table:Column id="Table_tc5" width="5rem">
+                            <Label id="Table_Label5" text="UoM" />
+                            <table:template>
+                                <Input id="Table_Input5" type="Text" maxLength="40" editable="false" value="{oTableDataModel>BillOfMaterialItemUnit}"/>
+                            </table:template>
+                        </table:Column>
+                        <table:Column id="Table_tc6" width="8rem">
+                            <Label id="Table_Label6" text="Batch" />
+                            <table:template>
+                                <Input id="Table_Input6" type="Text" maxLength="40" editable="true" value="{oTableDataModel>Batch}"/>
+                            </table:template>
+                        </table:Column>
+                           <table:Column id="Table_tc7" width="9rem">
+                            <Label id="Table_Label7" text="Avl Stock (ST01)" />
+                            <table:template>
+                                <Input id="Table_Input7" type="Text" maxLength="40" editable="false" value="{oTableDataModel>StockQty}"/>
+                            </table:template>
+                        </table:Column>  
+                        <table:Column id="Table_tc8" width="7rem">
+                            <Label id="Table_Label8" text="From Location" />
+                            <table:template>
+                                <Input id="Table_Input8" type="Text" maxLength="40" editable="false" value="{oTableDataModel>FromLocation}"/>
+                            </table:template>
+                        </table:Column>
+                        <table:Column id="Table_tc9" width="7rem">
+                            <Label id="Table_Label9" text="To Location" />
+                            <table:template>
+                                <Input id="Table_Input9" type="Text" maxLength="40" editable="false" value="{oTableDataModel>ToLocation}"/>
+                            </table:template>
+                        </table:Column>
+                        <table:Column id="Table_tc10" width="9rem">
+                            <Label id="Table_Label10" text="Remark" />
+                            <table:template>
+                                <Input id="idRemark" type="Text"  editable="true" value="{oTableDataModel>Remark}"/>
+                            </table:template>
+                        </table:Column>
+                        
+                      </table:columns>
+          <!-- <table:columns>
+            <table:Column id="tc011" width="13rem">
+              <Label id="tl02" text="Material" />
+              <table:template>
+                <Input id="idMaterial1" value="{oTableDataModel>Product}" submit="onSubmit" width="90%" placeholder="Enter Material" showSuggestion="true" showValueHelp="true" valueLiveUpdate="true" maxSuggestionWidth="60%" valueHelpRequest="handleValueHelpMaterial" suggestionRows="{path : '/ZRES_COMPPONENT', length:5000000}">
+                  <suggestionColumns>
+                    <Column>
+                      <Label text="Product"/>
+                    </Column>
+                    <Column>
+                      <Label text="Product Description"/>
+                    </Column>
+                    <Column>
+                      <Label text="Base Unit"/>
+                    </Column>
+                    <Column>
+                      <Label text="QtyInBaseUnit"/>
+                    </Column>
+                    <Column>
+                      <Label text="StockQty"/>
+                    </Column>
+                    <Column>
+                      <Label text="Batch"/>
+                    </Column>
+                    <Column>
+                      <Label text="Storage Location"/>
+                    </Column>
+                            
+                  </suggestionColumns>
+                  <suggestionRows>
+                    <ColumnListItem>
+                      <Label text="{Product}" />
+                      <Label text="{ProductDescription}" />
+                      <Label text="{BaseUnit}" />
+                      <Label text="{ResvnItmRequiredQtyInBaseUnit}" />
+                      <Label text="{StockQty}" />
+                      <Label text="{Batch}" />
+                      <Label text="{StorageLocation}" />
+                    </ColumnListItem>
+                  </suggestionRows>
+                </Input>
+              </table:template>
+            </table:Column>
+            <table:Column id="tc012" width="13rem">
+              <Label id="tl012" text="Material Long" />
+              <table:template>
+                <Input id="idMaterialLong" editable="false" value="" />
+              </table:template>
+            </table:Column>
+            <table:Column id="tc03" width="13rem">
+              <Label id="tl03" text="Material Description" />
+              <table:template>
+                <Input id="idMatDesc1" editable="false" value="{oTableDataModel>ProductDescription}" />
+              </table:template>
+            </table:Column>
+            <table:Column id="tc04" width="13rem">
+              <Label id="tl04" text="Quantity" />
+              <table:template>
+                <Input id="idQty01" editable="true" submit="AddAutomaticSingleRow1"  />
+              </table:template>
+            </table:Column>
+            <table:Column id="tc07" width="13rem">
+              <Label id="tl07" text="Location"/>
+              <table:template>
+                <Input id="idLocation1" editable="true" value="{oTableDataModel>StorageLocation}" />
+              </table:template>
+            </table:Column>
+            <table:Column id="tc18" width="13rem">
+              <Label id="tl18" text="Unit"/>
+              <table:template>
+                <Input id="idUnit" editable="false" value="{oTableDataModel>BaseUnit}" />
+              </table:template>
+            </table:Column>
+            <table:Column id="tc19" width="13rem">
+              <Label id="tl19" text="Batch"/>
+              <table:template>
+                <Input id="idBatch" editable="true" value="{oTableDataModel>Batch}" />
+              </table:template>
+            </table:Column>
+            <table:Column id="tc05" width="14rem">
+              <Label id="tl05" text="Available Stock" />
+              <table:template>
+                <Input id="idAvlStock" editable="false" value="{oTableDataModel>StockQty}" />
+              </table:template>
+            </table:Column>
+            <table:Column id="tc06" width="14rem">
+              <Label id="tl06" text="From Plant" />
+              <table:template>
+                <Input id="idFrPlant1" editable="false" value="1001" />
+              </table:template>
+            </table:Column>
+            <table:Column id="tc007" width="14rem">
+              <Label id="tl007" text="To Plant" />
+              <table:template>
+                <Input id="idToPlant1" editable="false" value="1001" />
+              </table:template>
+            </table:Column>
+            <table:Column id="tc08" width="14rem">
+              <Label id="tl08" text="From Location" />
+              <table:template>
+                <Input id="idFromLoc1" editable="false" value="{oTableDataModel>FromLocation}" />
+              </table:template>
+            </table:Column>
+            <table:Column id="tc09" width="14rem">
+              <Label id="tl09" text="To Location" />
+              <table:template>
+                <Input id="idToLoc1" editable="false" value="{oTableDataModel>ToLocation}" />
+              </table:template>
+            </table:Column>
+
+          </table:columns> -->
+
+        </table:Table>
+      
+      </f:SimpleForm>
+    </content>
+  </Page>
+</mvc:View>

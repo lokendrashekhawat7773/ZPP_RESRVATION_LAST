@@ -1,0 +1,3 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <SelectDialog id="SelectDialog1113" noDataText="No Data Found" search=".onSearch_cost" confirm=".onValueHelpDialogClose_cost" cancel=".onValueHelpDialogClose_cost" showClearButton="true" />
+</core:FragmentDefinition>
